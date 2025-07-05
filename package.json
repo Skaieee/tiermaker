@@ -1,0 +1,22 @@
+{
+  "name": "tier-list-maker",
+  "version": "1.0.0",
+  "description": "A web application for creating and managing tier lists.",
+  "main": "src/js/app.js",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build step can be added here'"
+  },
+  "keywords": [
+    "tier list",
+    "web application",
+    "javascript",
+    "css"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
