@@ -4,21 +4,20 @@
 The Tier List Maker is a web application that allows users to create and manage tier lists easily. Users can add items, categorize them into different tiers, and customize their lists according to their preferences.
 
 ## Features
-- Create and manage tier lists
+- Create and customize tier lists
 - Drag and drop functionality for item organization
-- Customizable tiers and items
-- Responsive design for mobile and desktop
+- Responsive design for various devices
+- Save and load tier lists
 
 ## Project Structure
 ```
 tier-list-maker
 ├── src
-│   ├── index.html        # Main HTML structure
-│   ├── css
-│   │   └── style.css     # Styles for the application
-│   └── js
+│   ├── index.html        # Main HTML document
+│   ├── styles
+│   │   └── main.css      # Styles for the application
+│   └── scripts
 │       └── app.js        # JavaScript logic for the application
-├── package.json          # npm configuration file
 └── README.md             # Project documentation
 ```
 
@@ -31,18 +30,15 @@ tier-list-maker
    ```
    cd tier-list-maker
    ```
-3. Install the dependencies:
-   ```
-   npm install
-   ```
+3. Open `src/index.html` in your web browser to view the application.
 
 ## Usage
-1. Open `src/index.html` in your web browser.
-2. Use the interface to create your tier lists by adding items and categorizing them into tiers.
-3. Customize your lists as needed.
+- To create a new tier list, simply add items using the provided input fields.
+- Drag and drop items to organize them into different tiers.
+- Customize the tier names and colors as needed.
 
 ## Contributing
 Contributions are welcome! Please submit a pull request or open an issue for any suggestions or improvements.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the LICENSE file for more details.
