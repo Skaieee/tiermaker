@@ -7,20 +7,39 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>Tier List Maker</h1>
-    </header>
-    <main>
-        <section id="tier-list-container">
-            <h2>Create Your Tier List</h2>
-            <div id="tier-list"></div>
+        <div class="controls">
+            <input type="text" id="tier-input" placeholder="Enter tier name">
             <button id="add-tier">Add Tier</button>
-            <button id="generate-list">Generate List</button>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Tier List Maker</p>
-    </footer>
+        </div>
+        <div class="main-content">
+            <div class="tiers-column">
+                <h2>Tiers</h2>
+                <table id="tier-table" class="tier-table">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Cards</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tier-table-body">
+                        <!-- Rows will be rendered here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="cards-column">
+            <h2>Ajouter une card</h2>
+            <div id="card-controls">
+                <input type="text" id="card-text-input" placeholder="Card text">
+                <input type="file" id="card-image-input" accept="image/*">
+                <button id="add-card">Add Card</button>
+            </div>
+            <div id="card-pool" class="card-pool"></div>
+        </div>
+    </div>
     <script src="scripts/app.js"></script>
 </body>
 </html>
