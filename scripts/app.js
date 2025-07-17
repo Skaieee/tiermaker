@@ -1,9 +1,8 @@
-// This file contains the JavaScript code for the tier list maker application.
-
 document.addEventListener('DOMContentLoaded', () => {
     const tierTableBody = document.getElementById('tier-table-body');
     const addTierButton = document.getElementById('add-tier');
     const tierInput = document.getElementById('tier-input');
+    const tierImageInput = document.getElementById('tier-image-input'); // Champ image
 
     const cardPool = document.getElementById('card-pool');
     const addCardButton = document.getElementById('add-card');
@@ -18,9 +17,40 @@ document.addEventListener('DOMContentLoaded', () => {
         tierTableBody.innerHTML = '';
         tiers.forEach((tier, index) => {
             const row = document.createElement('tr');
-            // Tier name cell
+
+            // Tier name or image + remove button in the same cell
             const nameCell = document.createElement('td');
-            nameCell.textContent = tier;
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-tier';
+            removeBtn.textContent = 'Remove';
+            removeBtn.addEventListener('click', () => {
+                tiers.splice(index, 1);
+                delete tierCards[index];
+                // Re-index tierCards
+                const newTierCards = {};
+                Object.keys(tierCards).forEach(tierIdx => {
+                    if (tierIdx < index) newTierCards[tierIdx] = tierCards[tierIdx];
+                    else if (tierIdx > index) newTierCards[tierIdx - 1] = tierCards[tierIdx];
+                });
+                tierCards = newTierCards;
+                renderTiers();
+            });
+
+            // If the tier is an image, create an img element
+            if (tier.type === 'image') {
+                const img = document.createElement('img');
+                img.src = tier.content;
+                img.alt = 'Tier image';
+                img.style.width = '50px';
+                img.style.height = '50px';
+                nameCell.appendChild(img);
+            } else {
+                // Otherwise, just display the text content
+                nameCell.textContent = tier.content;
+            }
+
+            // Add remove button to the same cell as the tier name/image
+            nameCell.appendChild(removeBtn);
             row.appendChild(nameCell);
 
             // Cards cell
@@ -46,36 +76,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             row.appendChild(cardsCell);
 
-            // Remove button cell
-            const removeCell = document.createElement('td');
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-tier';
-            removeBtn.textContent = 'Remove';
-            removeBtn.addEventListener('click', () => {
-                tiers.splice(index, 1);
-                delete tierCards[index];
-                // Re-index tierCards
-                const newTierCards = {};
-                Object.keys(tierCards).forEach(tierIdx => {
-                    if (tierIdx < index) newTierCards[tierIdx] = tierCards[tierIdx];
-                    else if (tierIdx > index) newTierCards[tierIdx - 1] = tierCards[tierIdx];
-                });
-                tierCards = newTierCards;
-                renderTiers();
-            });
-            removeCell.appendChild(removeBtn);
-            row.appendChild(removeCell);
-
             tierTableBody.appendChild(row);
         });
     }
 
     addTierButton.addEventListener('click', () => {
         const tierName = tierInput.value.trim();
-        if (tierName) {
-            tiers.push(tierName);
-            tierInput.value = '';
-            renderTiers();
+        const tierImageFile = tierImageInput.files[0];
+        if (tierName || tierImageFile) {
+            if (tierImageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tiers.push({ type: 'image', content: e.target.result });
+                    tierInput.value = '';
+                    tierImageInput.value = '';
+                    renderTiers();
+                };
+                reader.readAsDataURL(tierImageFile);
+            } else {
+                tiers.push({ type: 'text', content: tierName });
+                tierInput.value = '';
+                renderTiers();
+            }
         }
     });
 
